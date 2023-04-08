@@ -4,8 +4,8 @@ namespace JuhaKurisu.PopoTools.Deterministics
 {
     public struct FixVector2
     {
-        public Fix64 x { get; private set; }
-        public Fix64 y { get; private set; }
+        public readonly Fix64 x;
+        public readonly Fix64 y;
 
         public Fix64 this[int index]
         {
