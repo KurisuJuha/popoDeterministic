@@ -90,6 +90,8 @@ namespace JuhaKurisu.PopoTools.Deterministics
             => new(-a.x, -a.y);
         public static FixVector2 operator *(FixVector2 a, Fix64 b)
             => new(a.x * b, a.y * b);
+        public static FixVector2 operator *(Fix64 a, FixVector2 b)
+            => new(b.x * a, b.y * a);
         private static readonly FixVector2 zeroVector = new(new(0), new(0));
         private static readonly FixVector2 oneVector = new(new(1), new(1));
         private static readonly FixVector2 upVector = new(new(0), new(1));
