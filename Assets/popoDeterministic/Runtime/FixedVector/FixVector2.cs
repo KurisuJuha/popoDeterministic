@@ -42,6 +42,24 @@ namespace JuhaKurisu.PopoTools.Deterministics
             );
         }
 
+        public static FixVector2 MoveTowards(FixVector2 current, FixVector2 target, Fix64 maxDistanceDelta)
+        {
+            Fix64 toVectorX = target.x - current.x;
+            Fix64 toVectorY = target.y - current.y;
+
+            Fix64 sqDist = toVectorX * toVectorY + toVectorY * toVectorY;
+
+            if (sqDist == Fix64.Zero || (maxDistanceDelta >= Fix64.Zero && sqDist <= maxDistanceDelta * maxDistanceDelta))
+                return target;
+
+            Fix64 dist = Fix64.Sqrt(sqDist);
+
+            return new(
+                current.x + toVectorX / dist * maxDistanceDelta,
+                current.y + toVectorY / dist * maxDistanceDelta
+            );
+        }
+
         private static readonly FixVector2 zeroVector = new(new(0), new(0));
         private static readonly FixVector2 oneVector = new(new(1), new(1));
         private static readonly FixVector2 upVector = new(new(0), new(1));
