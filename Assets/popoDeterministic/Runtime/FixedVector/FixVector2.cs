@@ -27,7 +27,9 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         private static readonly FixVector2 zeroVector = new(new(0), new(0));
         private static readonly FixVector2 oneVector = new(new(1), new(1));
+        private static readonly FixVector2 upVector = new(new(0), new(1));
         public static FixVector2 zero => zeroVector;
         public static FixVector2 one => oneVector;
+        public static FixVector2 up => upVector;
     }
 }
