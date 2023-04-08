@@ -25,6 +25,15 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public FixVector2(Fix64 x) { this.x = x; this.y = Fix64.Zero; }
 
+        public static FixVector2 Lerp(FixVector2 a, FixVector2 b, Fix64 t)
+        {
+            t = Fix64.Clamp01(t);
+            return new(
+                a.x + (b.x - a.x) * t,
+                a.y + (b.y - a.y) * t
+            );
+        }
+
         private static readonly FixVector2 zeroVector = new(new(0), new(0));
         private static readonly FixVector2 oneVector = new(new(1), new(1));
         private static readonly FixVector2 upVector = new(new(0), new(1));
