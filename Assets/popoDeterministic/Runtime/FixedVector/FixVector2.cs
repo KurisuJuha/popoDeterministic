@@ -25,5 +25,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public FixVector2(Fix64 x) { this.x = x; this.y = Fix64.Zero; }
 
+        private static readonly FixVector2 zeroVector = new(new(0), new(0));
+        public static FixVector2 zero => zeroVector;
     }
 }
