@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace JuhaKurisu.PopoTools.Deterministics
 {
-    public struct FixVector2
+    public struct FixVector2 : IEquatable<FixVector2>
     {
         public readonly Fix64 x;
         public readonly Fix64 y;
@@ -30,6 +31,10 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public Fix64 sqrMagnitude => x * x + y * y;
 
         public FixVector2 normalized => Normalize(this);
+
+
+        public bool Equals(FixVector2 other)
+            => this == other;
 
         public static FixVector2 Lerp(FixVector2 a, FixVector2 b, Fix64 t)
         {
