@@ -30,10 +30,13 @@ namespace JuhaKurisu.PopoTools.Deterministics
         private static readonly FixVector2 upVector = new(new(0), new(1));
         private static readonly FixVector2 downVector = new(new(0), new(-1));
         private static readonly FixVector2 leftVector = new(new(-1), new(0));
+        private static readonly FixVector2 rightVector = new(new(1), new(0));
+
         public static FixVector2 zero => zeroVector;
         public static FixVector2 one => oneVector;
         public static FixVector2 up => upVector;
         public static FixVector2 down => downVector;
         public static FixVector2 left => leftVector;
+        public static FixVector2 right => rightVector;
     }
 }
