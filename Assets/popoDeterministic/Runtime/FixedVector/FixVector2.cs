@@ -32,6 +32,11 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public FixVector2 normalized => Normalize(this);
 
+        public override bool Equals(object other)
+        {
+            if (other is not FixVector2) return false;
+            return Equals((FixVector2)other);
+        }
 
         public bool Equals(FixVector2 other)
             => this == other;
