@@ -916,6 +916,12 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return atan;
         }
 
+        public static Fix64 Clamp(Fix64 value, Fix64 min, Fix64 max)
+        {
+            if (value < min) return min;
+            if (value > max) return max;
+            return value;
+        }
 
 
         public static explicit operator Fix64(long value)
