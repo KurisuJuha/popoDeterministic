@@ -923,6 +923,9 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return value;
         }
 
+        public static Fix64 Clamp01(Fix64 value)
+            => Clamp(value, Fix64.Zero, Fix64.One);
+
 
         public static explicit operator Fix64(long value)
         {
