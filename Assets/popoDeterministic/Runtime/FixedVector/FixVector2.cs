@@ -25,6 +25,8 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public FixVector2(Fix64 x) { this.x = x; this.y = Fix64.Zero; }
 
+        public Fix64 magnitude => Fix64.Sqrt(x * x + y * y);
+
         public static FixVector2 Lerp(FixVector2 a, FixVector2 b, Fix64 t)
         {
             t = Fix64.Clamp01(t);
