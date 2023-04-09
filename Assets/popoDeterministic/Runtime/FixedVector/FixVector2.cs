@@ -100,6 +100,10 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public static FixVector2 Perpendicular(FixVector2 inDirection)
             => new(-inDirection.y, inDirection.x);
+
+        public static Fix64 Dot(FixVector2 lhs, FixVector2 rhs)
+            => lhs.x * rhs.x + lhs.y * rhs.y;
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
