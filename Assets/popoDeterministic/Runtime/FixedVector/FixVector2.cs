@@ -104,6 +104,15 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static Fix64 Dot(FixVector2 lhs, FixVector2 rhs)
             => lhs.x * rhs.x + lhs.y * rhs.y;
 
+        public static Fix64 Angle(FixVector2 from, FixVector2 to)
+        {
+            Fix64 denominatior = Fix64.Sqrt(from.sqrMagnitude * to.sqrMagnitude);
+            if (denominatior == Fix64.Zero) return new(0);
+
+            Fix64 dot = Fix64.Clamp(Dot(from, to) / denominatior, new(-1), new(1));
+            return Fix64.Acos(dot) * Fix64.Rad2Deg;
+        }
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
