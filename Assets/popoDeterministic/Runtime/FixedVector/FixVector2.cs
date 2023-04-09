@@ -127,6 +127,23 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return Fix64.Sqrt(diffX * diffX + diffY * diffY);
         }
 
+        public static FixVector2 ClampMagnitude(FixVector2 vector, Fix64 maxLength)
+        {
+            Fix64 sqrMagnitude = vector.sqrMagnitude;
+            if (sqrMagnitude > maxLength * maxLength)
+            {
+                Fix64 mag = Fix64.Sqrt(sqrMagnitude);
+
+                Fix64 normalizedX = vector.x / mag;
+                Fix64 normalizedY = vector.y / mag;
+                return new(
+                    normalizedX * maxLength,
+                    normalizedY * maxLength
+                );
+            }
+            return vector;
+        }
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
