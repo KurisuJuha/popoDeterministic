@@ -144,6 +144,9 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return vector;
         }
 
+        public static FixVector2 Min(FixVector2 lhs, FixVector2 rhs)
+            => new(Fix64.Min(lhs.x, rhs.x), Fix64.Min(lhs.y, rhs.y));
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
