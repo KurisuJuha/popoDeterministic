@@ -113,6 +113,13 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return Fix64.Acos(dot) * Fix64.Rad2Deg;
         }
 
+        public static Fix64 SignedAngle(FixVector2 from, FixVector2 to)
+        {
+            Fix64 unsignedAngle = Angle(from, to);
+            Fix64 sign = new(Fix64.Sign(from.x * to.y - from.y * to.x));
+            return unsignedAngle * sign;
+        }
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
