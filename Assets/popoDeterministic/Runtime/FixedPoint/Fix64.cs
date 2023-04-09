@@ -57,6 +57,8 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 0;
         }
 
+        public static Fix64 Min(Fix64 a, Fix64 b)
+            => a < b ? a : b;
 
         public static Fix64 Max(Fix64 a, Fix64 b)
             => a > b ? a : b;
