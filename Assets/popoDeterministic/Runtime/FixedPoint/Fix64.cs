@@ -58,6 +58,9 @@ namespace JuhaKurisu.PopoTools.Deterministics
         }
 
 
+        public static Fix64 Max(Fix64 a, Fix64 b)
+            => a > b ? a : b;
+
         /// <summary>
         /// Returns the absolute value of a Fix64 number.
         /// Note: Abs(Fix64.MinValue) == Fix64.MaxValue.
