@@ -120,6 +120,13 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return unsignedAngle * sign;
         }
 
+        public static Fix64 Distance(FixVector2 a, FixVector2 b)
+        {
+            Fix64 diffX = a.x - b.x;
+            Fix64 diffY = a.y - b.y;
+            return Fix64.Sqrt(diffX * diffX + diffY * diffY);
+        }
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
