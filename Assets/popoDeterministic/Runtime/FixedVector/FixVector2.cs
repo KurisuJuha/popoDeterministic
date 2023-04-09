@@ -92,6 +92,12 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 return value / mag;
         }
 
+        public static FixVector2 Reflect(FixVector2 inDirection, FixVector2 inNormal)
+        {
+            Fix64 factor = new Fix64(-2) * Dot(inNormal, inDirection);
+            return new(factor * inNormal.x + inDirection.x, factor * inNormal.y + inDirection.y);
+        }
+
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
