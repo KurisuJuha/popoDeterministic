@@ -98,6 +98,8 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return new(factor * inNormal.x + inDirection.x, factor * inNormal.y + inDirection.y);
         }
 
+        public static FixVector2 Perpendicular(FixVector2 inDirection)
+            => new(-inDirection.y, inDirection.x);
         public static FixVector2 operator +(FixVector2 a, FixVector2 b)
             => new(a.x + b.x, a.y + b.y);
         public static FixVector2 operator -(FixVector2 a, FixVector2 b)
