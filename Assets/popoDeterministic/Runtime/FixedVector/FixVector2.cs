@@ -23,7 +23,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public FixVector2(Fix64 x, Fix64 y) { this.x = x; this.y = y; }
 
-        public FixVector2(Fix64 x) { this.x = x; this.y = Fix64.Zero; }
+        public FixVector2(Fix64 x) { this.x = x; this.y = Fix64.zero; }
 
         public Fix64 magnitude => Fix64.Sqrt(x * x + y * y);
 
@@ -69,7 +69,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
             Fix64 sqDist = toVectorX * toVectorY + toVectorY * toVectorY;
 
-            if (sqDist == Fix64.Zero || (maxDistanceDelta >= Fix64.Zero && sqDist <= maxDistanceDelta * maxDistanceDelta))
+            if (sqDist == Fix64.zero || (maxDistanceDelta >= Fix64.zero && sqDist <= maxDistanceDelta * maxDistanceDelta))
                 return target;
 
             Fix64 dist = Fix64.Sqrt(sqDist);
@@ -86,7 +86,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static FixVector2 Normalize(FixVector2 value)
         {
             Fix64 mag = value.magnitude;
-            if (mag == Fix64.Zero)
+            if (mag == Fix64.zero)
                 return zero;
             else
                 return value / mag;
@@ -107,10 +107,10 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static Fix64 Angle(FixVector2 from, FixVector2 to)
         {
             Fix64 denominatior = Fix64.Sqrt(from.sqrMagnitude * to.sqrMagnitude);
-            if (denominatior == Fix64.Zero) return new(0);
+            if (denominatior == Fix64.zero) return new(0);
 
             Fix64 dot = Fix64.Clamp(Dot(from, to) / denominatior, new(-1), new(1));
-            return Fix64.Acos(dot) * Fix64.Rad2Deg;
+            return Fix64.Acos(dot) * Fix64.rad2Deg;
         }
 
         public static Fix64 SignedAngle(FixVector2 from, FixVector2 to)

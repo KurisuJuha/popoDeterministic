@@ -13,25 +13,25 @@ namespace JuhaKurisu.PopoTools.Deterministics
         readonly long m_rawValue;
 
         // Precision of this type is 2^-32, that is 2,3283064365386962890625E-10
-        public static readonly decimal Precision = (decimal)(new Fix64(1L));//0.00000000023283064365386962890625m;
-        public static readonly Fix64 MaxValue = new Fix64(MAX_VALUE);
-        public static readonly Fix64 MinValue = new Fix64(MIN_VALUE);
-        public static readonly Fix64 One = new Fix64(ONE);
-        public static readonly Fix64 Zero = new Fix64();
+        public static readonly decimal precision = (decimal)(new Fix64(1L));//0.00000000023283064365386962890625m;
+        public static readonly Fix64 maxValue = new Fix64(MAX_VALUE);
+        public static readonly Fix64 minValue = new Fix64(MIN_VALUE);
+        public static readonly Fix64 one = new Fix64(ONE);
+        public static readonly Fix64 zero = new Fix64();
         /// <summary>
         /// The value of Pi
         /// </summary>
-        public static readonly Fix64 Pi = new Fix64(PI);
-        public static readonly Fix64 PiOver2 = new Fix64(PI_OVER_2);
-        public static readonly Fix64 PiTimes2 = new Fix64(PI_TIMES_2);
-        public static readonly Fix64 PiInv = (Fix64)0.3183098861837906715377675267M;
-        public static readonly Fix64 PiOver2Inv = (Fix64)0.6366197723675813430755350535M;
-        public static readonly Fix64 Rad2Deg = new Fix64(360) / (Fix64.Pi * new Fix64(2));
-        static readonly Fix64 Log2Max = new Fix64(LOG2MAX);
-        static readonly Fix64 Log2Min = new Fix64(LOG2MIN);
-        static readonly Fix64 Ln2 = new Fix64(LN2);
+        public static readonly Fix64 pi = new Fix64(PI);
+        public static readonly Fix64 piOver2 = new Fix64(PI_OVER_2);
+        public static readonly Fix64 piTimes2 = new Fix64(PI_TIMES_2);
+        public static readonly Fix64 piInv = (Fix64)0.3183098861837906715377675267M;
+        public static readonly Fix64 piOver2Inv = (Fix64)0.6366197723675813430755350535M;
+        public static readonly Fix64 rad2Deg = new Fix64(360) / (Fix64.pi * new Fix64(2));
+        static readonly Fix64 log2Max = new Fix64(LOG2MAX);
+        static readonly Fix64 log2Min = new Fix64(LOG2MIN);
+        static readonly Fix64 ln2 = new Fix64(LN2);
 
-        static readonly Fix64 LutInterval = (Fix64)(LUT_SIZE - 1) / PiOver2;
+        static readonly Fix64 lutInterval = (Fix64)(LUT_SIZE - 1) / piOver2;
         const long MAX_VALUE = long.MaxValue;
         const long MIN_VALUE = long.MinValue;
         const int NUM_BITS = 64;
@@ -71,7 +71,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         {
             if (value.m_rawValue == MIN_VALUE)
             {
-                return MaxValue;
+                return maxValue;
             }
 
             // branchless implementation, see http://www.strchr.com/optimized_abs_function
@@ -106,7 +106,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static Fix64 Ceiling(Fix64 value)
         {
             var hasFractionalPart = (value.m_rawValue & 0x00000000FFFFFFFF) != 0;
-            return hasFractionalPart ? Floor(value) + One : value;
+            return hasFractionalPart ? Floor(value) + one : value;
         }
 
         /// <summary>
@@ -123,13 +123,13 @@ namespace JuhaKurisu.PopoTools.Deterministics
             }
             if (fractionalPart > 0x80000000)
             {
-                return integralPart + One;
+                return integralPart + one;
             }
             // if number is halfway between two values, round to the nearest even number
             // this is the method used by System.Math.Round().
             return (integralPart.m_rawValue & ONE) == 0
                        ? integralPart
-                       : integralPart + One;
+                       : integralPart + one;
         }
 
         /// <summary>
@@ -225,14 +225,14 @@ namespace JuhaKurisu.PopoTools.Deterministics
             {
                 if (sum < 0 || (overflow && xl > 0))
                 {
-                    return MaxValue;
+                    return maxValue;
                 }
             }
             else
             {
                 if (sum > 0)
                 {
-                    return MinValue;
+                    return minValue;
                 }
             }
 
@@ -241,7 +241,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
             var topCarry = hihi >> FRACTIONAL_PLACES;
             if (topCarry != 0 && topCarry != -1 /*&& xl != -17 && yl != -17*/)
             {
-                return opSignsEqual ? MaxValue : MinValue;
+                return opSignsEqual ? maxValue : minValue;
             }
 
             // If signs differ, both operands' magnitudes are greater than 1,
@@ -261,7 +261,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 }
                 if (sum > negOp && negOp < -ONE && posOp > ONE)
                 {
-                    return MinValue;
+                    return minValue;
                 }
             }
 
@@ -346,7 +346,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 // Detect overflow
                 if ((div & ~(0xFFFFFFFFFFFFFFFF >> bitPos)) != 0)
                 {
-                    return ((xl ^ yl) & MIN_VALUE) == 0 ? MaxValue : MinValue;
+                    return ((xl ^ yl) & MIN_VALUE) == 0 ? maxValue : minValue;
                 }
 
                 remainder <<= 1;
@@ -383,7 +383,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
         public static Fix64 operator -(Fix64 x)
         {
-            return x.m_rawValue == MIN_VALUE ? MaxValue : new Fix64(-x.m_rawValue);
+            return x.m_rawValue == MIN_VALUE ? maxValue : new Fix64(-x.m_rawValue);
         }
 
         public static bool operator ==(Fix64 x, Fix64 y)
@@ -424,7 +424,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         {
             if (x.m_rawValue == 0)
             {
-                return One;
+                return one;
             }
 
             // Avoid negative arguments by exploiting that exp(-x) = 1/exp(x).
@@ -434,17 +434,17 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 x = -x;
             }
 
-            if (x == One)
+            if (x == one)
             {
-                return neg ? One / (Fix64)2 : (Fix64)2;
+                return neg ? one / (Fix64)2 : (Fix64)2;
             }
-            if (x >= Log2Max)
+            if (x >= log2Max)
             {
-                return neg ? One / MaxValue : MaxValue;
+                return neg ? one / maxValue : maxValue;
             }
-            if (x <= Log2Min)
+            if (x <= log2Min)
             {
-                return neg ? MaxValue : Zero;
+                return neg ? maxValue : zero;
             }
 
             /* The algorithm is based on the power series for exp(x):
@@ -458,12 +458,12 @@ namespace JuhaKurisu.PopoTools.Deterministics
             // Take fractional part of exponent
             x = new Fix64(x.m_rawValue & 0x00000000FFFFFFFF);
 
-            var result = One;
-            var term = One;
+            var result = one;
+            var term = one;
             int i = 1;
             while (term.m_rawValue != 0)
             {
-                term = FastMul(FastMul(x, term), Ln2) / (Fix64)i;
+                term = FastMul(FastMul(x, term), ln2) / (Fix64)i;
                 result += term;
                 i++;
             }
@@ -471,7 +471,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
             result = FromRaw(result.m_rawValue << integerPart);
             if (neg)
             {
-                result = One / result;
+                result = one / result;
             }
 
             return result;
@@ -536,7 +536,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// </exception>
         public static Fix64 Ln(Fix64 x)
         {
-            return FastMul(Log2(x), Ln2);
+            return FastMul(Log2(x), ln2);
         }
 
         /// <summary>
@@ -551,13 +551,13 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// </exception>
         public static Fix64 Pow(Fix64 b, Fix64 exp)
         {
-            if (b == One)
+            if (b == one)
             {
-                return One;
+                return one;
             }
             if (exp.m_rawValue == 0)
             {
-                return One;
+                return one;
             }
             if (b.m_rawValue == 0)
             {
@@ -565,7 +565,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 {
                     throw new DivideByZeroException();
                 }
-                return Zero;
+                return zero;
             }
 
             Fix64 log2 = Log2(b);
@@ -661,7 +661,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
             // Find the two closest values in the LUT and perform linear interpolation
             // This is what kills the performance of this function on x86 - x64 is fine though
-            var rawIndex = FastMul(clamped, LutInterval);
+            var rawIndex = FastMul(clamped, lutInterval);
             var roundedIndex = Round(rawIndex);
             var indexError = FastSub(rawIndex, roundedIndex);
 
@@ -786,7 +786,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
             var clamped = new Fix64(clampedPi);
 
             // Find the two closest values in the LUT and perform linear interpolation
-            var rawIndex = FastMul(clamped, LutInterval);
+            var rawIndex = FastMul(clamped, lutInterval);
             var roundedIndex = Round(rawIndex);
             var indexError = FastSub(rawIndex, roundedIndex);
 
@@ -805,15 +805,15 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// </summary>
         public static Fix64 Acos(Fix64 x)
         {
-            if (x < -One || x > One)
+            if (x < -one || x > one)
             {
                 throw new ArgumentOutOfRangeException(nameof(x));
             }
 
-            if (x.m_rawValue == 0) return PiOver2;
+            if (x.m_rawValue == 0) return piOver2;
 
-            var result = Atan(Sqrt(One - x * x) / x);
-            return x.m_rawValue < 0 ? result + Pi : result;
+            var result = Atan(Sqrt(one - x * x) / x);
+            return x.m_rawValue < 0 ? result + pi : result;
         }
 
         /// <summary>
@@ -822,7 +822,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// </summary>
         public static Fix64 Atan(Fix64 z)
         {
-            if (z.m_rawValue == 0) return Zero;
+            if (z.m_rawValue == 0) return zero;
 
             // Force positive values for argument
             // Atan(-z) = -Atan(z).
@@ -836,15 +836,15 @@ namespace JuhaKurisu.PopoTools.Deterministics
             var two = (Fix64)2;
             var three = (Fix64)3;
 
-            bool invert = z > One;
-            if (invert) z = One / z;
+            bool invert = z > one;
+            if (invert) z = one / z;
 
-            result = One;
-            var term = One;
+            result = one;
+            var term = one;
 
             var zSq = z * z;
             var zSq2 = zSq * two;
-            var zSqPlusOne = zSq + One;
+            var zSqPlusOne = zSq + one;
             var zSq12 = zSqPlusOne * two;
             var dividend = zSq2;
             var divisor = zSqPlusOne * three;
@@ -864,7 +864,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
             if (invert)
             {
-                result = PiOver2 - result;
+                result = piOver2 - result;
             }
 
             if (neg)
@@ -882,41 +882,41 @@ namespace JuhaKurisu.PopoTools.Deterministics
             {
                 if (yl > 0)
                 {
-                    return PiOver2;
+                    return piOver2;
                 }
                 if (yl == 0)
                 {
-                    return Zero;
+                    return zero;
                 }
-                return -PiOver2;
+                return -piOver2;
             }
             Fix64 atan;
             var z = y / x;
 
             // Deal with overflow
-            if (One + (Fix64)0.28M * z * z == MaxValue)
+            if (one + (Fix64)0.28M * z * z == maxValue)
             {
-                return y < Zero ? -PiOver2 : PiOver2;
+                return y < zero ? -piOver2 : piOver2;
             }
 
-            if (Abs(z) < One)
+            if (Abs(z) < one)
             {
-                atan = z / (One + (Fix64)0.28M * z * z);
+                atan = z / (one + (Fix64)0.28M * z * z);
                 if (xl < 0)
                 {
                     if (yl < 0)
                     {
-                        return atan - Pi;
+                        return atan - pi;
                     }
-                    return atan + Pi;
+                    return atan + pi;
                 }
             }
             else
             {
-                atan = PiOver2 - z / (z * z + (Fix64)0.28M);
+                atan = piOver2 - z / (z * z + (Fix64)0.28M);
                 if (yl < 0)
                 {
-                    return atan - Pi;
+                    return atan - pi;
                 }
             }
             return atan;
@@ -930,7 +930,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         }
 
         public static Fix64 Clamp01(Fix64 value)
-            => Clamp(value, Fix64.Zero, Fix64.One);
+            => Clamp(value, Fix64.zero, Fix64.one);
 
 
         public static explicit operator Fix64(long value)
@@ -1050,11 +1050,11 @@ namespace JuhaKurisu.PopoTools.Deterministics
                         writer.Write("            ");
                     }
                     var tan = Math.Tan(angle);
-                    if (tan > (double)MaxValue || tan < 0.0)
+                    if (tan > (double)maxValue || tan < 0.0)
                     {
-                        tan = (double)MaxValue;
+                        tan = (double)maxValue;
                     }
-                    var rawValue = (((decimal)tan > (decimal)MaxValue || tan < 0.0) ? MaxValue : (Fix64)tan).m_rawValue;
+                    var rawValue = (((decimal)tan > (decimal)maxValue || tan < 0.0) ? maxValue : (Fix64)tan).m_rawValue;
                     writer.Write(string.Format("0x{0:X}L, ", rawValue));
                 }
                 writer.Write(
