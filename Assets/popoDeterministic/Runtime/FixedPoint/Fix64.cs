@@ -100,6 +100,11 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return new Fix64((long)((ulong)value.m_rawValue & 0xFFFFFFFF00000000));
         }
 
+        public static long FloorToLong(Fix64 value)
+        {
+            return (long)Floor(value);
+        }
+
         /// <summary>
         /// Returns the smallest integral value that is greater than or equal to the specified number.
         /// </summary>
