@@ -46,6 +46,9 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return Equals((FixVector2)other);
         }
 
+        public override string ToString()
+            => $"({x}, {y})";
+
         public bool Equals(FixVector2 other)
             => this == other;
 
