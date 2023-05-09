@@ -18,6 +18,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static readonly Fix64 minValue = new Fix64(MIN_VALUE);
         public static readonly Fix64 one = new Fix64(ONE);
         public static readonly Fix64 two = one + one;
+        public static readonly Fix64 half = one / two;
         public static readonly Fix64 zero = new Fix64();
         /// <summary>
         /// The value of Pi
