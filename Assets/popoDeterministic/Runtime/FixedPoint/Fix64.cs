@@ -27,6 +27,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static readonly Fix64 piInv = (Fix64)0.3183098861837906715377675267M;
         public static readonly Fix64 piOver2Inv = (Fix64)0.6366197723675813430755350535M;
         public static readonly Fix64 rad2Deg = new Fix64(360) / (Fix64.pi * new Fix64(2));
+        public static readonly Fix64 deg2Rad = (Fix64.pi * new Fix64(2)) / new Fix64(360);
         static readonly Fix64 log2Max = new Fix64(LOG2MAX);
         static readonly Fix64 log2Min = new Fix64(LOG2MIN);
         static readonly Fix64 ln2 = new Fix64(LN2);
