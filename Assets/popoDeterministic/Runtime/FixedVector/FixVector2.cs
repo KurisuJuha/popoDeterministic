@@ -178,18 +178,11 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static bool operator !=(FixVector2 a, FixVector2 b)
             => !(a == b);
 
-        private static readonly FixVector2 zeroVector = new(0, 0);
-        private static readonly FixVector2 oneVector = new(1, 1);
-        private static readonly FixVector2 upVector = new(0, 1);
-        private static readonly FixVector2 downVector = new(0, -1);
-        private static readonly FixVector2 leftVector = new(-1, 0);
-        private static readonly FixVector2 rightVector = new(1, 0);
-
-        public static FixVector2 zero => zeroVector;
-        public static FixVector2 one => oneVector;
-        public static FixVector2 up => upVector;
-        public static FixVector2 down => downVector;
-        public static FixVector2 left => leftVector;
-        public static FixVector2 right => rightVector;
+        public static FixVector2 zero => new(0, 0);
+        public static FixVector2 one => new(1, 1);
+        public static FixVector2 up => new(0, 1);
+        public static FixVector2 down => new(0, -1);
+        public static FixVector2 left => new(-1, 0);
+        public static FixVector2 right => new(1, 0);
     }
 }
