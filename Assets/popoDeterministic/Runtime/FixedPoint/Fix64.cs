@@ -21,6 +21,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         public static readonly Fix64 half = one / two;
         public static readonly Fix64 zero = new Fix64();
         public static readonly Fix64 oneTurn = new Fix64(360);
+        public static readonly Fix64 halfTurn = new Fix64(180);
         /// <summary>
         /// The value of Pi
         /// </summary>
