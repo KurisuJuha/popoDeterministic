@@ -14,5 +14,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Floor(this Fix64 value)
             => Fix64.Floor(value);
 
+        public static long FloorToLong(this Fix64 value)
+            => Fix64.FloorToLong(value);
+
     }
 }
