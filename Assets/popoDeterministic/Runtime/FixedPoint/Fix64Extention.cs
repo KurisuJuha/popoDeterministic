@@ -50,5 +50,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Acos(this Fix64 value)
             => Fix64.Acos(value);
 
+        public static Fix64 Atan(this Fix64 value)
+            => Fix64.Atan(value);
+
     }
 }
