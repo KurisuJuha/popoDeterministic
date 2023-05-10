@@ -388,47 +388,31 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// Use the operator (%) for a more reliable but slower modulo.
         /// </summary>
         public static Fix64 FastMod(Fix64 x, Fix64 y)
-        {
-            return new Fix64(x.m_rawValue % y.m_rawValue);
-        }
+            => new Fix64(x.m_rawValue % y.m_rawValue);
 
         public static Fix64 operator -(Fix64 x)
-        {
-            return x.m_rawValue == MIN_VALUE ? maxValue : new Fix64(-x.m_rawValue);
-        }
+            => x.m_rawValue == MIN_VALUE ? maxValue : new Fix64(-x.m_rawValue);
 
         public static Fix64 operator +(Fix64 x)
             => x;
 
         public static bool operator ==(Fix64 x, Fix64 y)
-        {
-            return x.m_rawValue == y.m_rawValue;
-        }
+            => x.m_rawValue == y.m_rawValue;
 
         public static bool operator !=(Fix64 x, Fix64 y)
-        {
-            return x.m_rawValue != y.m_rawValue;
-        }
+            => x.m_rawValue != y.m_rawValue;
 
         public static bool operator >(Fix64 x, Fix64 y)
-        {
-            return x.m_rawValue > y.m_rawValue;
-        }
+            => x.m_rawValue > y.m_rawValue;
 
         public static bool operator <(Fix64 x, Fix64 y)
-        {
-            return x.m_rawValue < y.m_rawValue;
-        }
+            => x.m_rawValue < y.m_rawValue;
 
         public static bool operator >=(Fix64 x, Fix64 y)
-        {
-            return x.m_rawValue >= y.m_rawValue;
-        }
+            => x.m_rawValue >= y.m_rawValue;
 
         public static bool operator <=(Fix64 x, Fix64 y)
-        {
-            return x.m_rawValue <= y.m_rawValue;
-        }
+            => x.m_rawValue <= y.m_rawValue;
 
         /// <summary>
         /// Returns 2 raised to the specified power.
@@ -436,30 +420,15 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// </summary>
         internal static Fix64 Pow2(Fix64 x)
         {
-            if (x.m_rawValue == 0)
-            {
-                return one;
-            }
+            if (x.m_rawValue == 0) return one;
 
             // Avoid negative arguments by exploiting that exp(-x) = 1/exp(x).
             bool neg = x.m_rawValue < 0;
-            if (neg)
-            {
-                x = -x;
-            }
+            if (neg) x = -x;
 
-            if (x == one)
-            {
-                return neg ? one / (Fix64)2 : (Fix64)2;
-            }
-            if (x >= log2Max)
-            {
-                return neg ? one / maxValue : maxValue;
-            }
-            if (x <= log2Min)
-            {
-                return neg ? maxValue : zero;
-            }
+            if (x == one) return neg ? one / (Fix64)2 : (Fix64)2;
+            if (x >= log2Max) return neg ? one / maxValue : maxValue;
+            if (x <= log2Min) return neg ? maxValue : zero;
 
             /* The algorithm is based on the power series for exp(x):
              * http://en.wikipedia.org/wiki/Exponential_function#Formal_definition
@@ -483,10 +452,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
             }
 
             result = FromRaw(result.m_rawValue << integerPart);
-            if (neg)
-            {
-                result = one / result;
-            }
+            if (neg) result = one / result;
 
             return result;
         }
@@ -501,9 +467,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         internal static Fix64 Log2(Fix64 x)
         {
             if (x.m_rawValue <= 0)
-            {
                 throw new ArgumentOutOfRangeException("Non-positive value passed to Ln", "x");
-            }
 
             // This implementation is based on Clay. S. Turner's fast binary logarithm
             // algorithm (C. S. Turner,  "A Fast Binary Logarithm Algorithm", IEEE Signal
@@ -549,9 +513,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// The argument was non-positive
         /// </exception>
         public static Fix64 Ln(Fix64 x)
-        {
-            return FastMul(Log2(x), ln2);
-        }
+            => FastMul(Log2(x), ln2);
 
         /// <summary>
         /// Returns a specified number raised to the specified power.
@@ -565,20 +527,11 @@ namespace JuhaKurisu.PopoTools.Deterministics
         /// </exception>
         public static Fix64 Pow(Fix64 b, Fix64 exp)
         {
-            if (b == one)
-            {
-                return one;
-            }
-            if (exp.m_rawValue == 0)
-            {
-                return one;
-            }
+            if (b == one) return one;
+            if (exp.m_rawValue == 0) return one;
             if (b.m_rawValue == 0)
             {
-                if (exp.m_rawValue < 0)
-                {
-                    throw new DivideByZeroException();
-                }
+                if (exp.m_rawValue < 0) throw new DivideByZeroException();
                 return zero;
             }
 
@@ -608,10 +561,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
             // second-to-top bit
             var bit = 1UL << (NUM_BITS - 2);
 
-            while (bit > num)
-            {
-                bit >>= 2;
-            }
+            while (bit > num) bit >>= 2;
 
             // The main part is executed twice, in order to avoid
             // using 128 bit values in computations.
@@ -657,10 +607,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
                 }
             }
             // Finally, if next bit would have been 1, round the result upwards.
-            if (num > result)
-            {
-                ++result;
-            }
+            if (num > result) ++result;
             return new Fix64((long)result);
         }
 
@@ -704,10 +651,7 @@ namespace JuhaKurisu.PopoTools.Deterministics
             // Here we use the fact that the SinLut table has a number of entries
             // equal to (PI_OVER_2 >> 15) to use the angle to index directly into it
             var rawIndex = (uint)(clampedL >> 15);
-            if (rawIndex >= LUT_SIZE)
-            {
-                rawIndex = LUT_SIZE - 1;
-            }
+            if (rawIndex >= LUT_SIZE) rawIndex = LUT_SIZE - 1;
             var nearestValue = SinLut[flipHorizontal ?
                 SinLut.Length - 1 - (int)rawIndex :
                 (int)rawIndex];
@@ -740,17 +684,11 @@ namespace JuhaKurisu.PopoTools.Deterministics
             flipVertical = clamped2Pi >= PI;
             // obtain (angle % PI) from (angle % 2PI) - much faster than doing another modulo
             var clampedPi = clamped2Pi;
-            while (clampedPi >= PI)
-            {
-                clampedPi -= PI;
-            }
+            while (clampedPi >= PI) clampedPi -= PI;
             flipHorizontal = clampedPi >= PI_OVER_2;
             // obtain (angle % PI_OVER_2) from (angle % PI) - much faster than doing another modulo
             var clampedPiOver2 = clampedPi;
-            if (clampedPiOver2 >= PI_OVER_2)
-            {
-                clampedPiOver2 -= PI_OVER_2;
-            }
+            if (clampedPiOver2 >= PI_OVER_2) clampedPiOver2 -= PI_OVER_2;
             return clampedPiOver2;
         }
 
@@ -948,68 +886,39 @@ namespace JuhaKurisu.PopoTools.Deterministics
 
 
         public static explicit operator Fix64(long value)
-        {
-            return new Fix64(value * ONE);
-        }
+            => new Fix64(value * ONE);
         public static explicit operator long(Fix64 value)
-        {
-            return value.m_rawValue >> FRACTIONAL_PLACES;
-        }
+            => value.m_rawValue >> FRACTIONAL_PLACES;
         public static explicit operator Fix64(float value)
-        {
-            return new Fix64((long)(value * ONE));
-        }
+            => new Fix64((long)(value * ONE));
         public static explicit operator float(Fix64 value)
-        {
-            return (float)value.m_rawValue / ONE;
-        }
+            => (float)value.m_rawValue / ONE;
         public static explicit operator Fix64(double value)
-        {
-            return new Fix64((long)(value * ONE));
-        }
+            => new Fix64((long)(value * ONE));
         public static explicit operator double(Fix64 value)
-        {
-            return (double)value.m_rawValue / ONE;
-        }
+            => (double)value.m_rawValue / ONE;
         public static explicit operator Fix64(decimal value)
-        {
-            return new Fix64((long)(value * ONE));
-        }
+            => new Fix64((long)(value * ONE));
         public static explicit operator decimal(Fix64 value)
-        {
-            return (decimal)value.m_rawValue / ONE;
-        }
+            => (decimal)value.m_rawValue / ONE;
 
         public override bool Equals(object obj)
-        {
-            return obj is Fix64 && ((Fix64)obj).m_rawValue == m_rawValue;
-        }
+            => obj is Fix64 && ((Fix64)obj).m_rawValue == m_rawValue;
 
         public override int GetHashCode()
-        {
-            return m_rawValue.GetHashCode();
-        }
+            => m_rawValue.GetHashCode();
 
         public bool Equals(Fix64 other)
-        {
-            return m_rawValue == other.m_rawValue;
-        }
+            => m_rawValue == other.m_rawValue;
 
         public int CompareTo(Fix64 other)
-        {
-            return m_rawValue.CompareTo(other.m_rawValue);
-        }
+            => m_rawValue.CompareTo(other.m_rawValue);
 
         public override string ToString()
-        {
-            // Up to 10 decimal places
-            return ((decimal)this).ToString("0.##########");
-        }
+            => ((decimal)this).ToString("0.##########");
 
         public static Fix64 FromRaw(long rawValue)
-        {
-            return new Fix64(rawValue);
-        }
+            => new Fix64(rawValue);
 
         internal static void GenerateSinLut()
         {
