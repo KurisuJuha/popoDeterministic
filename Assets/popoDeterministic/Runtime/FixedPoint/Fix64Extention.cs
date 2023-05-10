@@ -20,5 +20,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Ceiling(this Fix64 value)
             => Fix64.Ceiling(value);
 
+        public static Fix64 Round(this Fix64 value)
+            => Fix64.Round(value);
+
     }
 }
