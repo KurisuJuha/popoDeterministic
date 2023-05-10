@@ -53,5 +53,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Atan(this Fix64 value)
             => Fix64.Atan(value);
 
+        public static Fix64 Clamp(this Fix64 value, Fix64 min, Fix64 max)
+            => Fix64.Clamp(value, min, max);
+
     }
 }
