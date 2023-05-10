@@ -56,5 +56,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Clamp(this Fix64 value, Fix64 min, Fix64 max)
             => Fix64.Clamp(value, min, max);
 
+        public static Fix64 Clamp(this Fix64 value, int min, int max)
+            => Fix64.Clamp(value, new(min), new(max));
+
     }
 }
