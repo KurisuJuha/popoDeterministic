@@ -22,6 +22,8 @@ namespace JuhaKurisu.PopoTools.Deterministics
             }
         }
 
+        public FixVector2(Fix64 x, int y) { this.x = x; this.y = new Fix64(y); }
+
         public FixVector2(int x, int y) { this.x = new Fix64(x); this.y = new Fix64(y); }
 
         public FixVector2(int x) { this.x = new Fix64(x); this.y = Fix64.zero; }
