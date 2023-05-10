@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace JuhaKurisu.PopoTools.Deterministics
 {
@@ -177,6 +178,12 @@ namespace JuhaKurisu.PopoTools.Deterministics
             => a.x == b.x && a.y == b.y;
         public static bool operator !=(FixVector2 a, FixVector2 b)
             => !(a == b);
+
+        public static explicit operator Vector2(FixVector2 fixVector2)
+            => new((float)fixVector2.x, (float)fixVector2.y);
+
+        public static explicit operator Vector3(FixVector2 fixVector2)
+            => new((float)fixVector2.x, (float)fixVector2.y);
 
         public static FixVector2 zero => new(0, 0);
         public static FixVector2 one => new(1, 1);
