@@ -11,5 +11,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 FastAbs(this Fix64 value)
             => Fix64.FastAbs(value);
 
+        public static Fix64 Floor(this Fix64 value)
+            => Fix64.Floor(value);
+
     }
 }
