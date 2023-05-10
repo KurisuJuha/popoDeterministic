@@ -26,5 +26,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Ln(this Fix64 value)
             => Fix64.Ln(value);
 
+        public static Fix64 Pow(this Fix64 value, Fix64 exp)
+            => Fix64.Pow(value, exp);
+
     }
 }
