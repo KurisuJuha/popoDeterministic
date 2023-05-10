@@ -41,5 +41,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Cos(this Fix64 value)
             => Fix64.Cos(value);
 
+        public static Fix64 FastCos(this Fix64 value)
+            => Fix64.FastCos(value);
+
     }
 }
