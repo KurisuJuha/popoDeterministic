@@ -397,6 +397,9 @@ namespace JuhaKurisu.PopoTools.Deterministics
             return x.m_rawValue == MIN_VALUE ? maxValue : new Fix64(-x.m_rawValue);
         }
 
+        public static Fix64 operator +(Fix64 x)
+            => x;
+
         public static bool operator ==(Fix64 x, Fix64 y)
         {
             return x.m_rawValue == y.m_rawValue;
