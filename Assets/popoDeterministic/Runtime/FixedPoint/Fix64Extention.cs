@@ -44,5 +44,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 FastCos(this Fix64 value)
             => Fix64.FastCos(value);
 
+        public static Fix64 Tan(this Fix64 value)
+            => Fix64.Tan(value);
+
     }
 }
