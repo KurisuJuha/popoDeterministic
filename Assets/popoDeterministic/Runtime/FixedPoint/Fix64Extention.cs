@@ -32,5 +32,8 @@ namespace JuhaKurisu.PopoTools.Deterministics.Extentions
         public static Fix64 Sqrt(this Fix64 value)
             => Fix64.Sqrt(value);
 
+        public static Fix64 Sin(this Fix64 value)
+            => Fix64.Sin(value);
+
     }
 }
