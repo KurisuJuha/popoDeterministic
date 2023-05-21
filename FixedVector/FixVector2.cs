@@ -1,6 +1,6 @@
 namespace JuhaKurisu.PopoTools.Deterministics
 {
-    public struct FixVector2 : IEquatable<FixVector2>
+    public readonly struct FixVector2 : IEquatable<FixVector2>
     {
         public readonly Fix64 x;
         public readonly Fix64 y;
