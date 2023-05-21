@@ -7,6 +7,8 @@ jobs:
       run:
         working-directory: ./
     steps:
+      - name: debug
+        run: ls
       - name: restore
         run: dotnet restore
       - name: build nuget
