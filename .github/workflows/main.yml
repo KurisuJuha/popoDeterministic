@@ -3,10 +3,12 @@ on: push
 jobs:
   nugetpush:
     runs-on: ubuntu-latest
+    
     defaults:
       run:
         working-directory: ./
     steps:
+      - uses: actions/checkout@main
       - name: debug
         run: ls
       - name: restore
