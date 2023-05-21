@@ -4,6 +4,8 @@ jobs:
   nugetpush:
     runs-on: ubuntu-latest
     steps:
+      - name: restore
+        run: dotnet restore
       - name: build nuget
         run: dotnet pack -c Release
       - name: push nuget
