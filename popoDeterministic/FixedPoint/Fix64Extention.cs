@@ -1,4 +1,4 @@
-namespace JuhaKurisu.PopoTools.Deterministics.Extentions
+namespace JuhaKurisu.PopoTools.Deterministics
 {
     public static class Fix64Extention
     {
